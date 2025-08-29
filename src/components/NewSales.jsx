@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function NewSales() {
-  const [showOverlay, setShowOverlay] = useState(false);
+    const [showOverlay, setShowOverlay] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(""); // "success" | "error" | ""
+  
+    useEffect(() => {
+        if (submitStatus) {
+          const timer = setTimeout(() => setSubmitStatus(""), 3000); // Auto-dismiss popup
+          return () => clearTimeout(timer);
+        }
+      }, [submitStatus]);
 
   const countryDialCodes = {
     Afghanistan: "+93",
@@ -235,7 +244,7 @@ export default function NewSales() {
       !usingCRM ||
       !consent
     ) {
-      alert("Please fill all required fields.");
+      setSubmitStatus("error"); // ✅ Set error status
       return;
     }
 
@@ -254,6 +263,9 @@ export default function NewSales() {
       consent: consent ? "Yes" : "No",
     };
 
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
     try {
       await fetch(
         "https://script.google.com/macros/s/AKfycbyvgOQdGXOTfk0mxbFr-BhvSn03Vj7c0_Xk7ebdzRsnwuxEf66-UGt896jhrCTeRgi9eQ/exec",
@@ -267,8 +279,8 @@ export default function NewSales() {
         }
       );
 
-      alert("Submitted successfully!");
-      setShowOverlay(false);
+      
+      setSubmitStatus("success"); // ✅ Set success status
       setFormData({
         firstName: "",
         lastName: "",
@@ -283,10 +295,12 @@ export default function NewSales() {
         existingCRMName: "",
         consent: false,
       });
-    } catch (err) {
-      console.error("Submission failed", err);
-      alert("Submission failed. Try again later.");
-    }
+     } catch (err) {
+       console.error("Submission failed", err);
+       setSubmitStatus("error"); // ✅ Set error status
+     } finally {
+       setIsSubmitting(false);
+     }
   };
 
   return (
@@ -325,6 +339,16 @@ export default function NewSales() {
           />
         </div>
       </div>
+
+      {/* Popup Notification */}
+      {showOverlay && submitStatus && (
+        <div className="fixed z-[999] top-[10%] left-1/2 transform -translate-x-1/2 bg-[#1E1749] shadow-xl border border-[#d4d4d4] px-6 py-3 rounded-lg flex items-center gap-2 animate-fadeIn">
+          <span className={`w-2.5 h-2.5 rounded-full ${submitStatus === "success" ? "bg-green-500" : "bg-red-500"}`}></span>
+          <p className="text-sm text-white font-inter">
+            {submitStatus === "success" ? "Form submitted successfully!" : "Submission failed. Please try again."}
+          </p>
+        </div>
+      )}
 
       {/* Overlay */}
       {showOverlay && (
@@ -463,11 +487,16 @@ export default function NewSales() {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="flex justify-center items-center w-full mt-2 py-2.5 sm:py-3 px-4 rounded-full bg-gradient-to-tr from-[#7B6CBC] to-[#1E1749]"
               >
-                <span className="text-white text-sm sm:text-base font-medium leading-5 font-inter text-center">
-                  Submit
-                </span>
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  <span className="text-white text-sm sm:text-base font-medium leading-5 font-inter text-center">
+                    Submit
+                  </span>
+                )}
               </button>
             </form>
           </div>

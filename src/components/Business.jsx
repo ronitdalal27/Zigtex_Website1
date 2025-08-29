@@ -87,7 +87,7 @@ function Card({ title, description, imgSrc }) {
       {/* Image Box */}
         <div className="
         absolute right-0 bottom-0
-        pl-[48px] pt-[200px] 
+        pl-[48px] pt-[100px] 
         w-full h-full 
         pointer-events-none
         ">

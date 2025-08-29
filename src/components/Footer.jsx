@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <div
       className="
-        flex flex-col items-start gap-12
+        flex flex-col items-start gap-2
         w-full max-w-[1440px]
-        px-4 sm:px-10 md:px-20 py-16
+        px-4 sm:px-10 md:px-10 py-8
         bg-white
       "
       >

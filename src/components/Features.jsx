@@ -32,21 +32,24 @@ export default function Features() {
 
         return (
             <div
-            key={index}
-            className={`w-full flex flex-col max-[950px]:flex-col ${
-                isEven ? "flex-row-reverse" : "flex-row"
-            } items-center justify-center gap-[40px]`}
+              key={index}
+              className="w-full flex justify-center px-4"
             >
-            <LeftSide
-                badge={card.badge}
-                title={card.title}
-                description={card.description}
-                features={card.features}
-            />
-
-            <RightSide image={card.image} />
+              <div
+                className={`w-full max-w-[1140px] flex flex-col max-[950px]:flex-col ${
+                  isEven ? "md:flex-row-reverse" : "md:flex-row"
+                } items-center justify-between gap-[40px] bg-[#F4F4F5] border border-[#D4D4D4] rounded-2xl p-6 sm:p-10 shadow-sm`}
+              >
+                <LeftSide
+                  badge={card.badge}
+                  title={card.title}
+                  description={card.description}
+                  features={card.features}
+                />
+                <RightSide image={card.image} />
+              </div>
             </div>
-        );
+          );
         })}
     </div>
   );
@@ -83,7 +86,7 @@ function LeftSide({ badge, title, description, features }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
               <path d="M3.23926 6.49992L5.90592 9.16658L11.2393 3.83325" stroke="#282828" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <p className="text-[#282828] font-inter text-[16px] font-normal leading-[26px]">
+            <p className="text-[#282828] font-inter text-[16px] font-bold leading-[26px]">
               {feature}
             </p>
           </div>
@@ -96,7 +99,7 @@ function LeftSide({ badge, title, description, features }) {
 // Right Section Component
 function RightSide({ image }) {
   return (
-   <div className="w-full max-w-[500px] aspect-square px-2 md:px-6 bg-[#FAFAFA] rounded-[24px] flex justify-center items-center overflow-hidden">
+   <div className="w-full max-w-[500px] aspect-square px-2 md:px-6 rounded-[24px] flex justify-center items-center overflow-hidden">
       <img
         src={image}
         alt="Feature Visual"
@@ -105,4 +108,6 @@ function RightSide({ image }) {
     </div>
   );
 }
+
+
 

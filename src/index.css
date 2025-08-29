@@ -24,36 +24,40 @@
   /* 🔽 300px to 399px */
   @media (min-width: 300px) and (max-width: 399px) {
     .top-custom-300-399 {
-      top: -10% !important;
+      top: -35% !important;
     }
     .w-custom-300-399 {
-      width: 125px !important;
+      width: 220px !important;
     }
     .left-custom-300-399 {
-      left: 25% !important;
+      left: 35% !important;
     }
     .top-custom-right-300-399 {
-      top: 35% !important;
+      top: 27% !important;
     }
     .w-custom-right-300-399 {
-      width: 80px !important;
+      width: 130px !important;
     }
   }
 
   /* 🔽 401px to 420px */
   @media (min-width: 401px) and (max-width: 420px) {
     .top-custom-400-420 {
-      top: -10% !important;
+      top: -45% !important;
     }
     .w-custom-400-420 {
-      width: 140px !important;
+      width: 250px !important;
+    }
+    .left-custom-401-420 {
+      left: 35% !important;
     }
     .top-custom-right-400-420 {
-      top: 35% !important;
+      top: 28% !important;
     }
     .w-custom-right-400-420 {
-      width: 95px !important;
+      width: 150px !important;
     }
+
   }
 
   /* 🔽 421px to 500px */
